@@ -68,7 +68,7 @@ function ToDo (props) {
       mode: 'cors',
     })
       .then((data) => data.json())
-      .then((data) => setList(data.result))
+      .then((data) => setList(data.results))
       .catch(console.error);
   };
 
