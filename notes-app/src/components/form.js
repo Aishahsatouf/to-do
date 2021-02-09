@@ -27,7 +27,7 @@ function TodoForm(props) {
 
         <Form.Group controlId="formBasicRange">
           <Form.Label>Difficulty Rating</Form.Label>
-          <Form.Control type="range" />
+          <Form.Control defaultValue="1" type="range" min="1" max="5" name="difficulty" onChange={handleInputChange}type="range" />
         </Form.Group>
 
         <Form.Group controlId="formBasicEmail">

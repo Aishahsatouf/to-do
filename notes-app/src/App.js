@@ -2,23 +2,21 @@ import React from 'react';
 import { Nav, Navbar } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ToDo from './components/todo.js';
+import ThemeProvider from './context/themeContext';
 import './App.scss';
 
 export default class App extends React.Component {
   render() {
     return (
       <>
-        <Navbar bg="primary" variant="dark">
-          <Navbar.Brand href="#home">Home</Navbar.Brand>
-          <Nav className="mr-auto">
-            {/* <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#features">Features</Nav.Link>
-            <Nav.Link href="#pricing">Pricing</Nav.Link> */}
-          </Nav>
-          
-        </Navbar>
-
-        <ToDo />
+        <ThemeProvider>
+          <Navbar bg="primary" variant="dark">
+            <Navbar.Brand href="#home">Home</Navbar.Brand>
+            <Nav className="mr-auto">
+            </Nav>
+          </Navbar>
+          <ToDo />
+        </ThemeProvider>
       </>
     );
   }
