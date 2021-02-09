@@ -1,20 +1,45 @@
 import React from 'react';
-import {ListGroup} from 'react-bootstrap'
+import { Card, Badge } from 'react-bootstrap';
 function TodoList(props) {
-  
+  const setVariation = (complete) => {
+    console.log(complete);
+    return complete ? 'danger' : 'success';
+  };
+  const handleValue = (complete) => {
+    return complete ? 'Complete' : 'Pending';
+  };
   return (
-    <ul>
-      {props.list.map(item => (
-
-        <ListGroup.Item action variant={(item.complete)?'danger':'success'} className={`complete-${item.complete.toString()}`}
-          key={item._id}><span onClick={() => props.handleComplete(item._id)}>
-            {item.text}
-          </span></ListGroup.Item>
-
+    <>
+      {props.list.map((item) => (
+        <Card key={item._id}>
+          <Card.Header as="h5">
+            <Badge
+              className="badge-padding"
+              pill
+              onClick={() => props.handleComplete(item._id)}
+              variant={setVariation(item.complete)}
+            >
+              {handleValue(item.complete)}{' '}
+            </Badge>
+            {item.assignee}
+            <span
+              onClick={() => props.handleDelete(item._id)}
+              className="delete-btn"
+              variant="outline-secondary"
+            >
+              X
+            </span>{' '}
+          </Card.Header>
+          <Card.Body>
+            <Card.Title>{item.text}</Card.Title>
+            <Card.Text className="right-text">
+              Difficulty: {item.difficulty}
+            </Card.Text>
+          </Card.Body>
+        </Card>
       ))}
-    </ul>
+    </>
   );
 }
-
 
 export default TodoList;
