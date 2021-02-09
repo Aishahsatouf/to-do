@@ -8,31 +8,23 @@ function TodoList(props) {
   const [data, setData] = useState([]);
   const [pageCount, setPageCount] = useState(0);
   const [currentPage, setCurrent] = useState(1);
-  const {
-    notePerPage,
-    difficultySort,
-    showHide,
-    setPagenation,
-    setSortedDefficulty,
-    setShowHide
-    } = useContext(ThemesContext);
-  console.log(notePerPage)
+  const context = useContext(ThemesContext);
+    console.log(context.notePerPage)
   const receivedData = () => {
     const list = props.list;
-    let slice = list.slice(offset, offset + notePerPage)
-    let newCount = Math.ceil(list.length / notePerPage)
+    let slice = list.slice(offset, offset + context.notePerPage)
+    let newCount = Math.ceil(list.length / context.notePerPage)
     setPageCount(newCount);
     setData(slice);
 
   }
   const handlePageClick = (e) => {
     const selectedPage = e.selected;
-    const newoffset = selectedPage * notePerPage;
+    const newoffset = selectedPage * context.notePerPage;
     setCurrent(selectedPage);
     setoffset(newoffset);
     receivedData();
   }
-  useEffect(receivedData, [data]);
   const setVariation = (complete) => {
     console.log(complete);
     return complete ? 'danger' : 'success';
@@ -40,15 +32,32 @@ function TodoList(props) {
   const handleValue = (complete) => {
     return complete ? 'Complete' : 'Pending';
   };
-  const handleNoteNum = (e) => {
-    e.preventDefault();
-    e.target.reset();
-    setPagenation(e.target.num.value);
-  }
+  
+  // const handleNoteNum = (e) => {
+  //   e.preventDefault();
+  //   e.target.reset();
+  //   let num = e.target.num.value;
+  //   setPagenation(num);
+  // }
+
+  // useEffect(()=> {
+  //   console.log("in use effect !!")
+    
+  //   if(data.length==0) {
+  //     receivedData ()
+     
+  //   } else {
+  //     setData(props.list);
+  //   }
+  // }, [data]);
+    
+    useEffect(receivedData, [data]);
+
   return (
     <>
-      <form onSubmit={handleNoteNum}>
+      <form onSubmit={e=>{context.setPagenation(e.target.num.value); }} >
         <input type="number" name="num" />
+        <button type="submit">OK</button>
       </form>
       {data.map((item) => (
         <Card key={item._id}>

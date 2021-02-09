@@ -5,7 +5,7 @@ export const ThemesContext = React.createContext();
 function ThemeProvider(props) {
     const [notePerPage,setPagenation]=useState(3);
     const[difficultySort,setSortedDefficulty]=useState('');
-    const[showHide,setShowHide]=useState(false);
+    const[showHide , setShowHide]=useState(false);
 
     const state = {
         notePerPage, 
