@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import TodoForm from './form.js';
 import TodoList from './list.js';
 import './todo.scss';
-import { Container, Row, Col, Alert, Navbar, Nav } from 'react-bootstrap';
-const todoAPI = 'https://todo-fatima.herokuapp.com/api/v1/todo';
+import { Container, Row, Col, Alert} from 'react-bootstrap';
+const todoAPI = 'https://api-js401.herokuapp.com/api/v1/todo';
 
 function ToDo (props) {
   const [list,setList] = useState([]);
@@ -68,7 +68,7 @@ function ToDo (props) {
       mode: 'cors',
     })
       .then((data) => data.json())
-      .then((data) => setList(data.result))
+      .then((data) => setList(data.results))
       .catch(console.error);
   };
 

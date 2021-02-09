@@ -27,8 +27,9 @@ function TodoList(props) {
               className="delete-btn"
               variant="outline-secondary"
             >
-              X
+           
             </span>{' '}
+              <button onClick={()=>props.handleDelete(item._id)}> X</button>
           </Card.Header>
           <Card.Body>
             <Card.Title>{item.text}</Card.Title>
