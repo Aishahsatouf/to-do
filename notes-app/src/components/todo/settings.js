@@ -20,10 +20,15 @@ function Settings(props) {
         <input type='radio' name='sort' onChange={context.toggleDifficulty} />
       </label>
       <br />
-      <label>
+      <form onSubmit={(e)=>{
+        e.preventDefault();
+        context.numberPages(e.target.num.value)}} >
+       <label>
         Number of tasks
-        <input type='number'  onChange={(e)=>context.numberPages(e.target.value)} />
+        <input type='number' min="1" name="num"/>
+       <button type="submit">Sort</button>
       </label>
+      </form>
     </>
   )
 }
