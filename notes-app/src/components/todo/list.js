@@ -56,7 +56,7 @@ function TodoList(props) {
   return (
     <>
       {listNew.map((item) => (
-        <Card key={item._id}>
+        <Card id='card' key={item._id}>
           <Card.Header as="h5">
             <Badge
               className="badge-padding"
@@ -68,6 +68,7 @@ function TodoList(props) {
             </Badge>
             {item.assignee}
             <span
+              id='name'
               onClick={() => props.handleDelete(item._id)}
               className="delete-btn"
               variant="outline-secondary"
@@ -79,7 +80,7 @@ function TodoList(props) {
           <Card.Body>
             <Card.Title>{item.text}</Card.Title>
 
-            <Card.Text className="right-text">
+            <Card.Text id='diff' className="right-text">
 
               Difficulty: {item.difficulty}
             </Card.Text>

@@ -44,10 +44,10 @@ class Login extends React.Component {
               </Nav>
             </Navbar.Brand>
 
-            <Form condition={!this.context.loggedIn} onSubmit={this.handleSubmit} inline>
+            <Form id='login'condition={!this.context.loggedIn} onSubmit={this.handleSubmit} inline>
               <FormControl onChange={this.handleChange} type="text" placeholder="Username" className="mr-sm-2" name="username" />
               <FormControl onChange={this.handleChange}type="password" placeholder="Password" className="mr-sm-2" name="password" />
-              <Button type="submit" variant="dark">login</Button>
+              <Button type="submit" variant="dark" >login</Button>
             </Form>
           </Navbar>
          
@@ -60,7 +60,7 @@ class Login extends React.Component {
               </Nav>
             </Navbar.Brand>
             <Form inline>
-              <Button variant="dark" onClick={this.context.logout}>logout</Button>
+              <Button variant="danger" onClick={this.context.logout} id='logout'>logout</Button>
             </Form>
           </Navbar>
           <ToDo />
