@@ -3,10 +3,7 @@ import {AuthContext} from '../../context/authContext'
 import Show from '../show/show';
 
 class Auth extends React.Component {
-    static contextType = AuthContext; // to access this.context
-//     <Auth action="delete">
-//          <button >Delete User</button>
-//     </Auth>
+    static contextType = AuthContext; 
     render() {
        let okToRender = this.context.loggedIn;
 

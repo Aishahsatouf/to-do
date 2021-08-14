@@ -5,7 +5,7 @@ import cookie from 'react-cookies';
 // import axios from 'axios'
 
 //.env
-const API = "https://auth-server-401.herokuapp.com";
+const API = "https://backend-aisha.herokuapp.com";
 
 // 1- Create context
 export const AuthContext = React.createContext();
@@ -36,6 +36,7 @@ class AuthProvider extends React.Component {
         });
         console.log('result from from fetch ',result)
         let res = await result.json();
+        console.log(res)
         // res should have a token 
         this.validateToken(res.token);
     }

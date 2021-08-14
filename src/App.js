@@ -72,7 +72,8 @@
 import './App.scss';
 import AuthProvider from './context/authContext';
 import Login from './components/todo/login';
-import Auth from './components/todo/auth';
+import 'rsuite/dist/styles/rsuite-default.css';
+// import Auth from './components/todo/auth';
 
 function App() {
   return (

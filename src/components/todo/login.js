@@ -3,9 +3,9 @@ import {AuthContext} from '../../context/authContext';
 import Show from '../show/show.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ToDo from './todo'
-import { Nav, Navbar, Form, FormControl, Button } from 'react-bootstrap';
-import SettingsProvider from '../../context/settings';
-import Settings from './settings';
+import { Nav, Navbar, Form, FormControl, Button,Row,Col,Container} from 'react-bootstrap';
+// import SettingsProvider from '../../context/settings';
+// import Settings from './settings';
 
 class Login extends React.Component {
 
@@ -35,7 +35,7 @@ class Login extends React.Component {
     render() {
         return (
             <>
-            <SettingsProvider>
+            {/* <SettingsProvider> */}
             <Show condition={!this.context.loggedIn}>
              <Navbar bg="primary" variant="dark">
             <Navbar.Brand href="#home">
@@ -53,6 +53,7 @@ class Login extends React.Component {
          
         </Show>
         <Show condition={this.context.loggedIn}>
+        
         <Navbar bg="primary" variant="dark">
             <Navbar.Brand href="#home">
               <Nav className="mr-auto">
@@ -63,12 +64,21 @@ class Login extends React.Component {
               <Button variant="danger" onClick={this.context.logout} id='logout'>logout</Button>
             </Form>
           </Navbar>
+        <Container>
+        
+          <Row >
+            <Col sm>
           <ToDo />
-          <section>
+          </Col>
+{/*          
+            <Col sm>
             <Settings />
-          </section>
+            </Col> */}
+           
+          </Row>
+          </Container>
         </Show>
-      </SettingsProvider>
+      {/* </SettingsProvider> */}
       </>
      )
     }
