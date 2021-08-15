@@ -2,15 +2,13 @@ import React from 'react';
 import base64 from 'base-64';
 import jwt from 'jsonwebtoken';
 import cookie from 'react-cookies';
-// import axios from 'axios'
 
-//.env
 const API = "https://backend-aisha.herokuapp.com";
 
-// 1- Create context
+
 export const AuthContext = React.createContext();
 
-// 2- Create Provider
+
 class AuthProvider extends React.Component {
 
     constructor(props) {
@@ -19,47 +17,44 @@ class AuthProvider extends React.Component {
             loggedIn: false, 
             login: this.login,
             logout: this.logout,
+            signup:this.signup,
             user: {},
             isValidAction: this.isValidAction
         }
     }
-
-    login = async(username, password)=> {
-        const encodedData = base64.encode(`${username}:${password}`)
-        //add to headers: 
-        // key : Authorization 
-        // value : Basic encodedData
+    signup = async(email,password,username)=> {
+        const object={email,password,username}
+        const result = await fetch(`${API}/signup`, {
+            method: 'post',
+            mode: 'cors',
+            headers: {'Content-Type': `application/json`},
+            body:JSON.stringify(object)
+        });
+        let res = await result.json();
+        this.validateToken(res.token,res.user);
+    }
+    login = async(email, password)=> {
+        const encodedData = base64.encode(`${email}:${password}`)
         const result = await fetch(`${API}/signin`, {
             method: 'post',
             mode: 'cors',
             headers: {'Authorization': `Basic ${encodedData}`}
         });
-        console.log('result from from fetch ',result)
         let res = await result.json();
-        console.log(res)
-        // res should have a token 
-        this.validateToken(res.token);
+        this.validateToken(res.token,res.user);
     }
 
-    validateToken = (token) => {
-        // I have a token 
-        // I can verify it using jwt
-        // get the user object from the result
-        // let user = jwt.verify(token, process.env.SECRET);
-        console.log("in validateToken!")
-        let user = jwt.decode(token); // from the docs it's not very recommended
-        console.log("user > ", user)
-        if(user) {
-            // save a cookie to the browser
-            // set loggedIn flag to true, add user object in state
+    validateToken = (token,user) => {
+   
+        let decodedUser = jwt.decode(token); 
+        
+        if(decodedUser) {
             this.setAuthState(true, token, user);
         }
     }
 
-    setAuthState = (loggedIn, token, user) => {
-        console.log("in setAuthState");
+    setAuthState = (loggedIn, token, user) => { 
         cookie.save('auth', token);
-        console.log("setAuthState user > ", user)
         this.setState({loggedIn, user});
     }
 

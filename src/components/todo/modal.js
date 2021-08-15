@@ -1,6 +1,7 @@
 
 import React ,{useState,useEffect}from "react";
 import {Modal,Button,ButtonToolbar} from "rsuite"
+import { PencilFill} from "react-bootstrap-icons"
 import { Form } from 'react-bootstrap';
 import useAjax  from "../hooks/useAjax";
 import moment from 'moment'
@@ -13,7 +14,6 @@ function Model(props) {
       setValues({ ...values, [e.target.name]: e.target.value });
     }
     const handleSubmit=()=>{
-      // e.preventDefault();
       console.log(values) 
       updateItem(props.id,values);
 
@@ -26,12 +26,10 @@ function Model(props) {
       _getOneTodoItem(props.id)
     
   }, [])
-    // useEffect(_getOneTodoItem(props.id), []);
 
     const open=()=> {
       if(props.id){
         _getOneTodoItem(props.id);
-        console.log("from modal====>",item)
       }
       setShow(true);
     }
@@ -39,7 +37,7 @@ function Model(props) {
       return (
         <div className="modal-container">
          <ButtonToolbar>
-          <Button onClick={open} size="lg">Edit</Button>
+          <PencilFill  onClick={open}  size={18} style={{cursor:'pointer',margin:'0 5px'}} >Edit</PencilFill >
         </ButtonToolbar>
         <Form onSubmit={handleSubmit}>
           <Modal show={show} onHide={close}>
@@ -67,8 +65,6 @@ function Model(props) {
           <Form.Label>Deu Date</Form.Label>
           <Form.Control defaultValue={item.duedate} appearance="default" block oneTap name="duedate" type="date" style={{ width: 280 }} onChange={handleInputChange} name="duedate" />
         </Form.Group>
-
-        {/* <Button appearance="primary" type="submit"> Add Item</Button> */}
       
             </Modal.Body>
             <Modal.Footer>

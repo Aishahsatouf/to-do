@@ -9,7 +9,6 @@ const useAjax = () => {
 
   const _addItem = async (item) => {
     try {
-      console.log("from add item====?",item)
       setLoading(true);
       const data = await axios({
         method: 'post',
@@ -51,8 +50,6 @@ const useAjax = () => {
   
   const _getOneTodoItem = async (id) => {
     try{
-      console.log(id)
-     
        const data =await axios({
         method: 'get',
         url:`${todoAPI}/onetodo/${id}`,
@@ -66,7 +63,6 @@ const useAjax = () => {
         }
       })
       setItem({...data.data.toDo[0]});
-      console.log("from ajax",item)
     }catch(error){
       console.log(error)
     }
@@ -74,9 +70,8 @@ const useAjax = () => {
 
   const updateItem =async (id,data) => {
     try{
-      const obj={...data,id:id}
       setLoading(true);
-      
+      const obj={...data,id:id}
       await axios({
       method: 'put',
       url:`${todoAPI}/editlist`,
@@ -97,13 +92,12 @@ const useAjax = () => {
 
   const _toggleComplete = async (id)=> {
      try{
+      // setLoading(true);
       let item = list.filter(i => i._id === id)[0] || {};
 
       if (item._id) {
   
         item.complete = !item.complete;
-  
-        // let url = `${todoAPI}/${id}`;
         let obj={id:id}
         await axios({
           method: 'put',
@@ -115,19 +109,16 @@ const useAjax = () => {
           },
           data: JSON.stringify(obj)
         });
-        await _getTodoItems()
+        await _getTodoItems();
+        // setLoading(false);
       }
      }catch(error){(console.log(error))};
-        // .then(response => response.json())
-        // .then(savedItem => {
-        //   setList(list.map(listItem => listItem._id === item._id ? savedItem : listItem));
-        // })
-        // .catch(console.error);
 
   };
 
   const _getTodoItems = async () => {
     try{
+      setLoading(true);
       const data =await axios({
         method: 'get',
         url:`${todoAPI}/todo`,
@@ -144,7 +135,7 @@ const useAjax = () => {
     }
   };
 
-  useEffect(_getTodoItems, []); // execute once only
+  useEffect(_getTodoItems, [])
 
   return [_addItem, removeItem, updateItem, _toggleComplete, _getTodoItems,_getOneTodoItem, loading, list,item];
 };
