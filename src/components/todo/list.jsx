@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import moment from "moment"
 import { Badge, Button, Row   } from 'react-bootstrap';
 import {TrashFill} from 'react-bootstrap-icons'
@@ -11,7 +11,7 @@ function TodoList(props) {
   const selectPage = (pageNum) =>{
     setCurrentPage(pageNum);
       
-    }
+  }
   const setVariation = (complete) => {
 
     return complete ? 'success' : 'danger';
@@ -19,6 +19,14 @@ function TodoList(props) {
   const handleValue = (complete) => {
     return complete ? 'Complete' : 'Pending';
   };
+  const handleBadge=(item)=>{
+    props.handleComplete(item._id);
+    if (item._id) {
+      item.complete = !item.complete;
+        
+      steListNew(listNew.map(listItem => listItem._id === item._id ? item : listItem));
+    }
+  }
   const selectColor = ( due) => {
     const today = moment(new Date()).format('YYYY-MM-DD')
 
@@ -28,9 +36,14 @@ function TodoList(props) {
       return "green"
     }
   }
+  const handleItemUpdate=(data)=>{
+    if (data._id) {
+         
+      steListNew(listNew.map(listItem => listItem._id === data._id ? data : listItem));
+    }
+  }
 
   const handleFilterChange = (e) => {
-    console.log("from search", e)
     const newList = props.list.filter(item => {
       return item.task.includes(e) || item.description.includes(e)
     });
@@ -59,10 +72,11 @@ function TodoList(props) {
             <Container style={{ fontSize: "20px" }}>
               <Header as="h5" style={{ fontWeight: "bold" }}>
                 {item.task}{' '}
+                
                 <Badge
                   className="badge-padding"
                   pill
-                  onClick={() => props.handleComplete(item._id)}
+                  onClick={ () => handleBadge(item) }
                   variant={setVariation(item.complete)}
                   style={{ cursor: "pointer" }}
                 >
@@ -75,7 +89,7 @@ function TodoList(props) {
                 {item.description}
               </Content>
               <Sidebar>
-                <Modal id={item._id} />
+                <Modal id={item._id} handleItemUpdate={handleItemUpdate} />
                 <TrashFill size={18} style={{cursor:'pointer',marginTop:"5%"}} onClick={() => props.handleDelete(item._id)} >Delete</TrashFill>
               </Sidebar>
             </Container >

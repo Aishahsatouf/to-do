@@ -1,6 +1,6 @@
 import React from 'react';
 import {AuthContext} from '../../context/authContext'
-import Show from '../show/show';
+import Show from './show';
 
 class Auth extends React.Component {
     static contextType = AuthContext; 

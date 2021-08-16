@@ -8,7 +8,7 @@ function TodoForm(props) {
 }
   return (
     <>
-      <h3>Add New Item To</h3>
+      <h3>Add New Tasks</h3>
 
       <Form onSubmit={handleSubmit}>
         <Form.Group>

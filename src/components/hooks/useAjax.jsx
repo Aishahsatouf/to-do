@@ -5,6 +5,7 @@ const todoAPI = 'https://backend-aisha.herokuapp.com';
 const useAjax = () => {
   const [list, setList] = useState([]);
   const [item, setItem] = useState({});
+  const [updatedItem, setUpdateItem] = useState({});
   const [loading, setLoading] = useState(true);
 
   const _addItem = async (item) => {
@@ -70,20 +71,21 @@ const useAjax = () => {
 
   const updateItem =async (id,data) => {
     try{
-      setLoading(true);
       const obj={...data,id:id}
-      await axios({
-      method: 'put',
-      url:`${todoAPI}/editlist`,
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${cookie.load('auth')}`
-      },
-      data: JSON.stringify(obj)
-    });
-    await _getTodoItems()
-    setLoading(false);
+      const result = await axios({
+        method: 'put',
+        url:`${todoAPI}/editlist`,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${cookie.load('auth')}`
+        },
+        data: JSON.stringify(obj)
+      });
+  
+      setUpdateItem({...result.data.updatedToDo});
+      console.log("from updateeeee",result.data.updatedToDo)
+  
 
     }catch(error){(console.log(error))};
 
@@ -92,7 +94,6 @@ const useAjax = () => {
 
   const _toggleComplete = async (id)=> {
      try{
-      // setLoading(true);
       let item = list.filter(i => i._id === id)[0] || {};
 
       if (item._id) {
@@ -109,8 +110,7 @@ const useAjax = () => {
           },
           data: JSON.stringify(obj)
         });
-        await _getTodoItems();
-        // setLoading(false);
+    
       }
      }catch(error){(console.log(error))};
 
@@ -137,7 +137,7 @@ const useAjax = () => {
 
   useEffect(_getTodoItems, [])
 
-  return [_addItem, removeItem, updateItem, _toggleComplete, _getTodoItems,_getOneTodoItem, loading, list,item];
+  return [_addItem, removeItem, updateItem, _toggleComplete, _getTodoItems,_getOneTodoItem, loading, list,item,updatedItem];
 };
 
 export default useAjax
