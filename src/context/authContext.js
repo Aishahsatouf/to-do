@@ -3,7 +3,7 @@ import base64 from 'base-64';
 import jwt from 'jsonwebtoken';
 import cookie from 'react-cookies';
 
-const API = "https://backend-aisha.herokuapp.com";
+const API = process.env.REACT_APP_URL;
 
 
 export const AuthContext = React.createContext();

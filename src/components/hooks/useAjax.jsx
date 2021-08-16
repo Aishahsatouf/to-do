@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from "axios";
 import cookie from 'react-cookies';
-const todoAPI = 'https://backend-aisha.herokuapp.com';
+const todoAPI = process.env.REACT_APP_URL;
 const useAjax = () => {
   const [list, setList] = useState([]);
   const [item, setItem] = useState({});
